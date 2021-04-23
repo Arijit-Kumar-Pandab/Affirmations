@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.affirmations.R
-import com.example.affirmations.data.loadAffirmations
 
 class affirmationAdapter(private val context:Context,private val list: List<Affirmation>): RecyclerView.Adapter<affirmationAdapter.viewHolder>() {
     inner class viewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val Text: TextView = itemView.findViewById(R.id.affirmation_text)
-        //val image: ImageView = itemView.findViewById(R.id.affirmation_image)
+        val image: ImageView = itemView.findViewById(R.id.affirmation_image)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
@@ -22,8 +22,8 @@ class affirmationAdapter(private val context:Context,private val list: List<Affi
     }
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
-        val item = list[position]
-        holder.Text.text = context.resources.getString(item.stringId)
+        holder.Text.text = context.resources.getString(list[position].stringId)
+        Glide.with(holder.itemView.context).load(list[position].imageId).placeholder(R.drawable.ic_launcher_background).into(holder.image)
     }
 
     override fun getItemCount(): Int {
